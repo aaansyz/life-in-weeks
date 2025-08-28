@@ -1,0 +1,337 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 页面标题样式 */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 40px 0;
+}
+
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+}
+
+/* 用户交互区域样式 */
+.input-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    align-items: end;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.input-group input {
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #ffffff;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.input-group input[type="color"] {
+    height: 50px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.generate-btn {
+    background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.generate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.generate-btn:active {
+    transform: translateY(0);
+}
+
+/* 统计信息样式 */
+.stats-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+/* 生命时间圆圈样式 */
+.weeks-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.weeks-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.year-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 4px 0;
+}
+
+.year-label {
+    font-weight: 600;
+    color: #374151;
+    min-width: 60px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.year-spacer {
+    min-width: 60px;
+}
+
+.week-circle {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.week-circle.past {
+    background-color: var(--past-color, #3B82F6);
+    border: 2px solid var(--past-color, #3B82F6);
+}
+
+.week-circle.future {
+    background-color: transparent;
+    border: 2px solid #d1d5db;
+}
+
+.week-circle.before-birth {
+    background-color: transparent;
+    border: 2px dashed #9ca3af;
+}
+
+.week-circle:hover {
+    transform: scale(1.3);
+    z-index: 10;
+}
+
+/* 每10年的分隔 */
+.year-row:nth-child(10n) {
+    margin-bottom: 12px;
+}
+
+/* 周信息提示框样式 */
+.week-tooltip {
+    position: absolute;
+    z-index: 1000;
+    pointer-events: none;
+    animation: tooltipFadeIn 0.3s ease-out;
+}
+
+.tooltip-content {
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    white-space: nowrap;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.tooltip-title {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 6px;
+    color: #ffffff;
+}
+
+.tooltip-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.85rem;
+    color: #e5e7eb;
+}
+
+.tooltip-status {
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.tooltip-status.past {
+    background-color: var(--past-color, #3B82F6);
+    color: white;
+}
+
+.tooltip-status.future {
+    background-color: #6b7280;
+    color: white;
+}
+
+.tooltip-status.before-birth {
+    background-color: #9ca3af;
+    color: white;
+}
+
+/* 提示框出现动画 */
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2.5rem;
+    }
+    
+    .input-section {
+        grid-template-columns: 1fr;
+        padding: 25px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .week-circle {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .year-row {
+        gap: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .title {
+        font-size: 2rem;
+    }
+    
+    .week-circle {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .year-row {
+        gap: 4px;
+    }
+}
