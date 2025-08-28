@@ -82,6 +82,9 @@ class LifeInWeeks {
             return;
         }
 
+        // user feedback
+        showToast('Preparing a high-resolution image, please wait…');
+
         // Ensure html-to-image is available; dynamically load if missing with multi-CDN fallback
         if (typeof window.htmlToImage === 'undefined') {
             const cdnCandidates = [
@@ -117,8 +120,19 @@ class LifeInWeeks {
 
         const scale = 2; // retina-friendly
         try {
-            // Use toPng to avoid file:// + blob issues in some browsers
-            const dataUrl = await window.htmlToImage.toPng(target, {
+            // Create a wrapper with padding for top/right whitespace
+            const wrapper = document.createElement('div');
+            wrapper.style.background = '#ffffff';
+            wrapper.style.paddingTop = '24px';   // top whitespace
+            wrapper.style.paddingRight = '24px'; // right whitespace
+            wrapper.style.display = 'inline-block';
+            wrapper.style.position = 'fixed';
+            wrapper.style.left = '-10000px'; // keep off-screen while rendering
+            wrapper.appendChild(target.cloneNode(true));
+            document.body.appendChild(wrapper);
+
+            // Use toPng on wrapper to include padding
+            const dataUrl = await window.htmlToImage.toPng(wrapper, {
                 pixelRatio: scale,
                 backgroundColor: '#ffffff',
                 style: { filter: 'none' }
@@ -130,6 +144,8 @@ class LifeInWeeks {
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+            // cleanup
+            document.body.removeChild(wrapper);
         } catch (err) {
             showToast('Export failed. Try reducing size or use desktop Chrome.');
         } finally {
