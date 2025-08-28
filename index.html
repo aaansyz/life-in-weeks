@@ -1,68 +1,95 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Life In Weeks - 生命时间表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Life In Weeks – Visualize Your Life by Weeks</title>
+    <meta name="description" content="Life In Weeks helps you visualize your life week by week. Enter your birthdate and expected lifespan to see a beautiful timeline of weeks lived and weeks remaining.">
+    <meta name="keywords" content="life in weeks, weeks of life, life calendar, life visualization, life weeks chart, life timeline">
+    <meta name="author" content="Life In Weeks">
+    <link rel="canonical" href="https://example.com/">
+    <meta property="og:title" content="Life In Weeks – Visualize Your Life by Weeks">
+    <meta property="og:description" content="Visualize your life week by week. See weeks lived and weeks remaining in a clean, beautiful layout.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com/">
+    <meta property="og:image" content="https://example.com/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Life In Weeks – Visualize Your Life by Weeks">
+    <meta name="twitter:description" content="Visualize your life week by week. See weeks lived and weeks remaining.">
+    <meta name="theme-color" content="#3B82F6">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Life In Weeks",
+      "url": "https://example.com/",
+      "applicationCategory": "Utility",
+      "description": "Visualize your life by weeks using your birthdate and lifespan.",
+      "operatingSystem": "Web",
+      "inLanguage": "en",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+    }
+    </script>
 </head>
 <body>
     <div class="container">
-        <!-- 页面标题 -->
-        <header class="header">
+        <header class="header" role="banner">
             <h1 class="title">Life In Weeks</h1>
-            <p class="subtitle">以周为单位，重新审视你的生命</p>
+            <p class="subtitle">See your life in weeks — past and future</p>
         </header>
 
-        <!-- 用户交互区域 -->
-        <section class="input-section">
+        <main id="main" role="main">
+        <section class="input-section" aria-labelledby="inputs-heading">
+            <h2 id="inputs-heading" class="sr-only">Inputs</h2>
             <div class="input-group">
-                <label for="birthdate">出生日期</label>
-                <input type="date" id="birthdate" required>
+                <label for="birthdate">Birthdate</label>
+                <input type="date" id="birthdate" required aria-required="true">
             </div>
             
             <div class="input-group">
-                <label for="lifespan">预期寿命 (年)</label>
-                <input type="number" id="lifespan" min="1" max="150" value="80" required>
+                <label for="lifespan">Expected lifespan (years)</label>
+                <input type="number" id="lifespan" min="1" max="150" value="80" required aria-required="true" inputmode="numeric" pattern="[0-9]*">
             </div>
             
             <div class="input-group">
-                <label for="pastColor">已过时间的圆圈颜色</label>
+                <label for="pastColor">Color for weeks lived</label>
                 <input type="color" id="pastColor" value="#3B82F6">
             </div>
             
-            <button id="generateBtn" class="generate-btn">生成生命时间表</button>
+            <button id="generateBtn" class="generate-btn" aria-label="Generate life calendar">Generate life calendar</button>
         </section>
 
-        <!-- 统计信息 -->
-        <section class="stats-section" id="statsSection" style="display: none;">
+        <section class="stats-section" id="statsSection" style="display: none;" aria-labelledby="stats-heading">
+            <h2 id="stats-heading" class="sr-only">Statistics</h2>
             <div class="stats-grid">
                 <div class="stat-item">
                     <span class="stat-number" id="totalWeeks">0</span>
-                    <span class="stat-label">总周数</span>
+                    <span class="stat-label">Total weeks</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number" id="weeksLived">0</span>
-                    <span class="stat-label">已过周数</span>
+                    <span class="stat-label">Weeks lived</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number" id="weeksRemaining">0</span>
-                    <span class="stat-label">剩余周数</span>
+                    <span class="stat-label">Weeks remaining</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number" id="age">0</span>
-                    <span class="stat-label">当前年龄</span>
+                    <span class="stat-label">Current age</span>
                 </div>
             </div>
         </section>
 
-        <!-- 生命时间圆圈展示区域 -->
-        <section class="weeks-section" id="weeksSection" style="display: none;">
+        <section class="weeks-section" id="weeksSection" style="display: none;" aria-labelledby="weeks-heading">
+            <h2 id="weeks-heading" class="sr-only">Life weeks</h2>
             <div class="weeks-container" id="weeksContainer">
-                <!-- 圆圈将通过JavaScript动态生成 -->
+                <!-- Circles are generated by JavaScript -->
             </div>
         </section>
+        </main>
     </div>
 
     <script src="script.js"></script>

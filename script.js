@@ -12,7 +12,7 @@ class LifeInWeeks {
         const generateBtn = document.getElementById('generateBtn');
         generateBtn.addEventListener('click', () => this.generateLifeWeeks());
         
-        // 实时更新颜色预览
+        // Live color preview
         const pastColorInput = document.getElementById('pastColor');
         pastColorInput.addEventListener('input', (e) => {
             document.documentElement.style.setProperty('--past-color', e.target.value);
@@ -20,7 +20,7 @@ class LifeInWeeks {
     }
 
     setDefaultDate() {
-        // 设置默认出生日期为距离当前时间25岁
+        // Default birthdate to 25 years before today
         const today = new Date();
         const defaultBirthYear = today.getFullYear() - 25;
         const defaultBirthDate = new Date(defaultBirthYear, today.getMonth(), today.getDate());
@@ -34,12 +34,12 @@ class LifeInWeeks {
         const pastColor = document.getElementById('pastColor').value;
 
         if (!birthdate || !lifespan) {
-            alert('请填写完整的出生日期和预期寿命');
+            alert('Please fill in your birthdate and expected lifespan.');
             return;
         }
 
         if (lifespan < 1 || lifespan > 150) {
-            alert('预期寿命必须在1-150年之间');
+            alert('Expected lifespan must be between 1 and 150.');
             return;
         }
 
@@ -59,7 +59,7 @@ class LifeInWeeks {
         document.getElementById('statsSection').style.display = 'block';
         document.getElementById('weeksSection').style.display = 'block';
 
-        // 滚动到结果区域
+        // Scroll to results
         document.getElementById('weeksSection').scrollIntoView({ 
             behavior: 'smooth' 
         });
@@ -130,10 +130,10 @@ class LifeInWeeks {
                 let status, description;
                 
                 if (year === 0 && week < this.getWeekOfYear(birth)) {
-                    // 第一年，出生前的周数
+                    // Weeks before birth within the first year row
                     weekCircle.classList.add('before-birth');
-                    status = '出生前';
-                    description = `${currentYear}年 第${week}周 (出生前)`;
+                    status = 'Before birth';
+                    description = `${currentYear} • Week ${week} (before birth)`;
                 } else {
                     // 用户生命中的周数
                     const lifeWeekNumber = currentLifeWeek; // 保存当前周数
@@ -141,13 +141,13 @@ class LifeInWeeks {
                     if (currentLifeWeek <= weeksLived) {
                         // 已经度过的周数
                         weekCircle.classList.add('past');
-                        status = '已度过';
-                        description = `生命第${lifeWeekNumber}周 (已度过)`;
+                        status = 'Lived';
+                        description = `Life week ${lifeWeekNumber} (lived)`;
                     } else {
                         // 未来的周数
                         weekCircle.classList.add('future');
-                        status = '未来';
-                        description = `生命第${lifeWeekNumber}周 (未来)`;
+                        status = 'Future';
+                        description = `Life week ${lifeWeekNumber} (future)`;
                     }
                     
                     // 添加点击事件
@@ -183,10 +183,10 @@ class LifeInWeeks {
         tooltip.className = 'week-tooltip';
         tooltip.innerHTML = `
             <div class="tooltip-content">
-                <div class="tooltip-title">生命中的第${weekNumber}周</div>
+                <div class="tooltip-title">Life week ${weekNumber}</div>
                 <div class="tooltip-details">
-                    <div>${year}年 第${weekOfYear}周</div>
-                    <div class="tooltip-status ${status === '出生前' ? 'before-birth' : status === '已度过' ? 'past' : 'future'}">${status}</div>
+                    <div>${year} • Week ${weekOfYear}</div>
+                    <div class="tooltip-status ${status === 'Before birth' ? 'before-birth' : status === 'Lived' ? 'past' : 'future'}">${status}</div>
                 </div>
             </div>
         `;
@@ -212,14 +212,14 @@ class LifeInWeeks {
     }
 }
 
-// 页面加载完成后初始化
+// Init on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
     new LifeInWeeks();
 });
 
-// 添加一些交互增强功能
+// Enhancements
 document.addEventListener('DOMContentLoaded', () => {
-    // 为输入框添加回车键支持
+    // Submit on Enter
     const inputs = document.querySelectorAll('input');
     inputs.forEach(input => {
         input.addEventListener('keypress', (e) => {
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 添加输入验证提示
+    // Validation hint
     const lifespanInput = document.getElementById('lifespan');
     lifespanInput.addEventListener('input', (e) => {
         const value = parseInt(e.target.value);

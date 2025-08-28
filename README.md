@@ -1,64 +1,63 @@
-# Life In Weeks - 生命时间表
+# Life In Weeks – Visualize Your Life by Weeks
 
-一个以周为单位展示生命时间的网页应用，帮助用户以全新的视角审视自己的人生。
+A minimalist web app to visualize your life week by week. Enter your birthdate and expected lifespan to see weeks lived and weeks remaining at a glance.
 
-## 功能特性
+## Features
 
-- 🎯 **精确计算**: 根据出生日期和预期寿命，精确计算生命周数
-- 🎨 **视觉化展示**: 用圆圈表示每一周，直观展示时间流逝
-- 🌈 **个性化颜色**: 用户可自定义已过时间的圆圈颜色
-- 📊 **实时统计**: 显示总周数、已过周数、剩余周数和当前年龄
-- 📱 **响应式设计**: 支持各种设备尺寸，移动端友好
-- ✨ **交互体验**: 悬停效果、平滑滚动等增强用户体验
+- 🎯 **Accurate math**: Lifespan × 52 weeks; life week 1 starts at your birthdate
+- 🎨 **Visual timeline**: Rows of 52 circles per year; filled vs outlined weeks
+- 🌈 **Custom color**: Choose the color for weeks already lived
+- 📊 **Live stats**: Total weeks, weeks lived, weeks remaining, current age
+- 📱 **Responsive**: Optimized layout and touch targets for mobile
+- ✨ **Interactions**: Hover and tap details; smooth scrolling; lightweight
 
-## 使用方法
+## How it works
 
-1. **输入出生日期**: 选择您的出生年月日
-2. **设置预期寿命**: 输入预期寿命（1-150年之间的整数）
-3. **选择颜色**: 自定义已过时间圆圈的颜色
-4. **生成时间表**: 点击"生成生命时间表"按钮
-5. **查看结果**: 查看统计信息和生命时间圆圈
+1. Pick your birthdate
+2. Enter expected lifespan (1–150 years)
+3. Choose a color for lived weeks
+4. Click “Generate life calendar”
+5. Explore your life timeline and stats
 
-## 圆圈含义
+## Legend
 
-- 🔵 **实心圆**: 已经度过的时间（使用您选择的颜色）
-- ⭕ **空心圆**: 未来的时间
-- 🔘 **虚线圆**: 出生前的周数（仅第一年显示）
+- 🔵 **Filled**: Weeks already lived (your chosen color)
+- ⭕ **Outlined**: Future weeks
+- 🔘 **Dashed**: Weeks before birth within the first row
 
-## 技术实现
+## Tech
 
-- **前端**: HTML5 + CSS3 + JavaScript (ES6+)
-- **字体**: Google Fonts (Playfair Display + Inter)
-- **样式**: 现代化CSS，包含渐变背景、毛玻璃效果
-- **响应式**: 移动端优先的响应式设计
+- HTML5, CSS3, JavaScript (ES6+)
+- Google Fonts (Playfair Display + Inter)
+- Accessible and SEO-friendly semantics
 
-## 文件结构
+## Project structure
 
 ```
 lifeweeks2/
-├── index.html      # 主页面
-├── styles.css      # 样式文件
-├── script.js       # 核心逻辑
-└── README.md       # 说明文档
+├── index.html     # Main page (English, SEO metadata, structured data)
+├── styles.css     # Modern styles, responsive layout
+├── script.js      # Core logic and interactions
+└── README.md      # Documentation (this file)
 ```
 
-## 浏览器支持
+## Browser support
 
 - Chrome 60+
 - Firefox 55+
 - Safari 12+
 - Edge 79+
 
-## 本地运行
+## Run locally
 
-1. 下载所有文件到本地目录
-2. 用浏览器打开 `index.html` 文件
-3. 开始使用！
+1. Download all files
+2. Open `index.html` in your browser
+3. That’s it
 
-## 设计理念
+## Design notes
 
-这个应用的设计灵感来源于"生命时间表"的概念，通过将抽象的时间概念转化为可视化的圆圈，帮助人们更好地理解时间的珍贵性。每一行代表一年，每52个圆圈代表一年中的52周，让用户能够直观地看到自己已经度过了多少时间，还有多少时间可以规划。
+Inspired by the “Life Calendar” idea. Each row represents a year with 52 weeks, clearly showing the contrast between past and future time to help you plan intentionally.
 
 ---
 
-*让每一周都变得有意义* ✨
+Make every week count. ✨
