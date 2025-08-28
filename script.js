@@ -82,12 +82,30 @@ class LifeInWeeks {
             return;
         }
 
-        // Ensure html-to-image is available; dynamically load if missing (file:// compatibility)
+        // Ensure html-to-image is available; dynamically load if missing with multi-CDN fallback
         if (typeof window.htmlToImage === 'undefined') {
-            try {
-                await loadScript('https://unpkg.com/html-to-image@1.11.11/dist/html-to-image.min.js');
-            } catch (e) {
-                showToast('Renderer not loaded. Check your internet connection.');
+            const cdnCandidates = [
+                'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js',
+                'https://unpkg.com/html-to-image@1.11.11/dist/html-to-image.min.js',
+                'https://esm.sh/html-to-image@1.11.11/dist/html-to-image.min.js'
+            ];
+            let loaded = false;
+            for (const src of cdnCandidates) {
+                try {
+                    // eslint-disable-next-line no-await-in-loop
+                    await loadScript(src);
+                    if (typeof window.htmlToImage !== 'undefined') {
+                        loaded = true;
+                        break;
+                    }
+                } catch (e) {
+                    // Continue to next CDN; also log for diagnostics
+                    // eslint-disable-next-line no-console
+                    console.warn('[html-to-image] load failed from', src, e);
+                }
+            }
+            if (!loaded) {
+                showToast('Renderer not loaded. Please allow CDN scripts or try again.');
                 return;
             }
         }
