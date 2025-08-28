@@ -17,6 +17,10 @@ class LifeInWeeks {
         pastColorInput.addEventListener('input', (e) => {
             document.documentElement.style.setProperty('--past-color', e.target.value);
         });
+
+        // Download button (mobile shows hint)
+        const downloadBtn = document.getElementById('downloadBtn');
+        downloadBtn.addEventListener('click', () => this.handleDownload());
     }
 
     setDefaultDate() {
@@ -63,6 +67,56 @@ class LifeInWeeks {
         document.getElementById('weeksSection').scrollIntoView({ 
             behavior: 'smooth' 
         });
+    }
+
+    async handleDownload() {
+        // Mobile: show hint only
+        if (isMobileDevice()) {
+            showToast('For the best quality, please export on a desktop browser.');
+            return;
+        }
+
+        const target = document.getElementById('weeksContainer');
+        if (!target || target.children.length === 0) {
+            showToast('Please generate your life calendar first.');
+            return;
+        }
+
+        // Ensure html-to-image is available; dynamically load if missing (file:// compatibility)
+        if (typeof window.htmlToImage === 'undefined') {
+            try {
+                await loadScript('https://unpkg.com/html-to-image@1.11.11/dist/html-to-image.min.js');
+            } catch (e) {
+                showToast('Renderer not loaded. Check your internet connection.');
+                return;
+            }
+        }
+
+        // Temporarily adjust styles for clean export
+        const weeksSectionEl = document.querySelector('.weeks-section');
+        const originalShadow = weeksSectionEl ? weeksSectionEl.style.boxShadow : '';
+        if (weeksSectionEl) weeksSectionEl.style.boxShadow = 'none';
+
+        const scale = 2; // retina-friendly
+        try {
+            // Use toPng to avoid file:// + blob issues in some browsers
+            const dataUrl = await window.htmlToImage.toPng(target, {
+                pixelRatio: scale,
+                backgroundColor: '#ffffff',
+                style: { filter: 'none' }
+            });
+            const link = document.createElement('a');
+            const lifespan = document.getElementById('lifespan').value || 'life';
+            link.download = `life-in-weeks_${lifespan}y.png`;
+            link.href = dataUrl;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (err) {
+            showToast('Export failed. Try reducing size or use desktop Chrome.');
+        } finally {
+            if (weeksSectionEl) weeksSectionEl.style.boxShadow = originalShadow;
+        }
     }
 
     calculateWeeksLived(birthdate) {
@@ -240,3 +294,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// Helpers outside class
+function isMobileDevice() {
+    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+function showToast(message, duration = 3000) {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    toast.textContent = message;
+    toast.style.display = 'block';
+    toast.style.opacity = '1';
+    setTimeout(() => {
+        toast.style.transition = 'opacity 300ms ease';
+        toast.style.opacity = '0';
+        setTimeout(() => {
+            toast.style.display = 'none';
+            toast.style.transition = '';
+        }, 300);
+    }, duration);
+}
+
+function loadScript(src) {
+    return new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = src;
+        s.async = true;
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+    });
+}
